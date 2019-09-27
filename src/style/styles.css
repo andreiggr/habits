@@ -1,0 +1,28 @@
+.completed {
+  background-color: green;
+  border-radius: 10px;
+}
+
+.calendar {
+  border-radius: 10px;
+}
+
+.react-calendar__tile--active {
+  border-radius: 10px;
+}
+
+.react-calendar__tile:enabled:hover,
+.react-calendar__tile:enabled:focus {
+  border-radius: 10px;
+}
+
+.react-calendar__navigation {
+  border-radius: 10px;
+}
+.react-calendar__navigation button {
+  border-radius: 10px;
+}
+.react-calendar__navigation button:enabled:hover,
+.react-calendar__navigation button:enabled:focus {
+  border-radius: 10px;
+}
