@@ -13,7 +13,7 @@ const Main = props => {
 
     const handleAddHabit = () => {
 
-        const title = state.newHabit;
+        const title = newHabit;
         const id = props.habits.length + 1;
         const days = [];
         const habit = { days, id, title };
@@ -29,14 +29,7 @@ const Main = props => {
         }
     }
 
-    const handleOpenNotify = () => {
-        setOpenNotify(true)
-    }
-    const handleCloseNotify = () => {
-        setOpenNotify(false)
-    }
-
-    const week = [
+   const week = [
         moment(),
         moment().add(1, "day"),
         moment().add(2, "day"),
@@ -60,7 +53,7 @@ const Main = props => {
                 <Input style={{ marginRight: "10px" }} placeholder="New habit" value={newHabit} onChange={(e) => setNewHabit(e.target.value)} />
                 <Button variant="outlined" color="secondary" onClick={() => handleAddHabit()}> Add a habit </Button>
             </div>
-            <Notification open={openNotify} title={notifyText} handleClose={() => handleCloseNotify()} />
+            {/* <Notification open={openNotify} title={notifyText} handleClose={() => handleCloseNotify()} /> */}
         </div>
     );
 }

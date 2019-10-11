@@ -47,22 +47,45 @@ export function addHabit(habit) {
             days: habit.days
         })
             .then(() => {
-                dispatch(habitsFetchData(apiUrl));
+                dispatch(addHabitUpdate(habit));
             }, (error) => {
                 console.log(error);
-            });
+            })
+    }
+}
+export function addHabitUpdate(habit) {
+    return {
+        type: "HABIT_ADD",
+        habit
     }
 }
 
-export function removeHabit(id) {
+export function removeHabit(habit) {
     return (dispatch) => {
-        axios.delete(apiUrl + id)
+        axios.delete(apiUrl + habit.id)
             .then(() => {
-                dispatch(habitsFetchData(apiUrl));
+                dispatch(removeHabitUpdate(habit.id));
             }, (error) => {
                 console.log(error);
-            });
+            })
+            // .then(()=> {
+            //     dispatch(removeHabitDays(habit.days))
+            // }, (error) => console.log(error) )
 
+    }
+}
+
+// export function removeHabitDays (days) {
+//   return days.map(day => 
+//     habitRemoveDate(day)
+//     )  
+// }
+
+
+export function removeHabitUpdate(id) {
+    return {
+        type: "HABIT_REMOVE",
+        id
     }
 }
 
@@ -74,10 +97,17 @@ export function habitAddDate(day) {
             date: day.date
         })
             .then(() => {
-                dispatch(habitsFetchData(apiUrl));
+                dispatch(habitAddDateUpdate(day));
             }, (error) => {
                 console.log(error);
             });
+    }
+}
+
+export function habitAddDateUpdate(day) {
+    return {
+        type: "ADD_DATE",
+        day
     }
 }
 
@@ -85,9 +115,16 @@ export function habitRemoveDate(day) {
     return (dispatch) => {
         axios.delete(apiUrl + day.habitId + "/day/" + day.id)
             .then(() => {
-                dispatch(habitsFetchData(apiUrl));
+                dispatch(habitRemoveDateUpdate(day));
             }, (error) => {
                 console.log(error);
             });
+    }
+}
+
+export function habitRemoveDateUpdate(day) {
+    return {
+        type: "REMOVE_DATE",
+        day
     }
 }

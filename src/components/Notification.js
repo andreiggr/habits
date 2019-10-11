@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Snackbar, SnackbarContent  } from '@material-ui/core';
+import { Snackbar, SnackbarContent } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 
 
@@ -17,7 +17,7 @@ const Notification = (props) => {
             >
                 <SnackbarContent
                     message={props.title}
-                    action={[<CloseIcon style={{cursor:"pointer"}} onClick={props.handleClose}/>]}
+                    action={[<CloseIcon style={{ cursor: "pointer" }} onClick={props.handleClose} />]}
                 />
             </Snackbar>
         </React.Fragment>
