@@ -3,6 +3,7 @@ import { Paper, Typography, CircularProgress, IconButton } from '@material-ui/co
 import { Close, Check } from "@material-ui/icons";
 import { Link } from 'react-router-dom';
 import moment from "moment";
+import nextDayId from '../utils/nextDayId';
 import _ from "lodash";
 
 
@@ -10,15 +11,9 @@ const HabitCard = props => {
 
     const handleCheck = (day) => {
         const habitId = props.habit.id;
-        const allDaysId = [].concat(...props.habits.map(habit =>
-            habit.days.map(day => parseInt(day.id))
-        ));
-        //const id = Math.max(...allDaysId) + 1;
-        const id = allDaysId.length > 0? Math.max(...allDaysId) + 1 : 1; 
-        console.log(id)
+        const id  = nextDayId(props.habits)
         const date = moment(day).unix();
         const newDay = { id, habitId, date };
-
         props.addDate(newDay);
     }
 
