@@ -8,14 +8,10 @@ import '../style/styles.css';
 const DetailedHabit = props => {
 
     const handleRemoveHabit = () => {
-
-        ///solve this
-        const habitDays = props.habit.days;
-        habitDays.map((day) => setTimeout(() => props.removeDate(day), 500))
-            .then(props.removeHabit(props.habit))
-            .then(props.history.replace("/"))
-
+        props.removeHabit(props.habit)
+        props.history.replace("/")
     }
+
     const habit = props.habit;
     const days = habit.days.map(item => moment.unix(item.date).format("L"));
 

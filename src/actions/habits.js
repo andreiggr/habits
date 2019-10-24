@@ -62,24 +62,23 @@ export function addHabitUpdate(habit) {
 
 export function removeHabit(habit) {
     return (dispatch) => {
-        axios.delete(apiUrl + habit.id)
-            .then(() => {
-                dispatch(removeHabitUpdate(habit.id));
-            }, (error) => {
-                console.log(error);
-            })
-            // .then(()=> {
-            //     dispatch(removeHabitDays(habit.days))
-            // }, (error) => console.log(error) )
+        const days = habit.days
 
+        axios.all(days.map(day =>
+            axios.delete(apiUrl + day.habitId + "/day/" + day.id)
+        ))
+            .then(() =>
+                axios.delete(apiUrl + habit.id)
+                    .then(() => {
+                        dispatch(removeHabitUpdate(habit.id));
+                    }, (error) => {
+                        console.log(error);
+                    })
+            )
+            .then(() => { dispatch(habitsFetchData(apiUrl)) })
     }
 }
 
-// export function removeHabitDays (days) {
-//   return days.map(day => 
-//     habitRemoveDate(day)
-//     )  
-// }
 
 
 export function removeHabitUpdate(id) {

@@ -3,6 +3,7 @@ import HabitCard from './HabitCard';
 import { Typography, Button, Input } from '@material-ui/core';
 import moment from "moment";
 import Notification from './Notification';
+import _ from "lodash";
 
 
 const Main = props => {
@@ -12,9 +13,10 @@ const Main = props => {
     const [notifyText, setNotifyText] = useState("");
 
     const handleAddHabit = () => {
-
         const title = newHabit;
-        const id = props.habits.length + 1;
+
+        //assign next biggest id
+        const id = props.habits.length > 0 ? Math.max(...props.habits.map(habit => parseInt(habit.id))) + 1 : 1;
         const days = [];
         const habit = { days, id, title };
 
@@ -29,7 +31,7 @@ const Main = props => {
         }
     }
 
-   const week = [
+    const week = [
         moment(),
         moment().add(1, "day"),
         moment().add(2, "day"),
