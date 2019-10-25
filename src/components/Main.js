@@ -9,7 +9,6 @@ import { week } from "../utils/constants";
 
 import { addHabit } from '../actions/habits';
 
-
 const Main = ({ addHabit, habits }) => {
 
     const [newHabit, setNewHabit] = useState("");
@@ -66,6 +65,5 @@ const mapDispatchToProps = (dispatch) => {
     };
 
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

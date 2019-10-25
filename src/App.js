@@ -15,9 +15,7 @@ const App = props => {
     useEffect(() => {
         props.fetchData("http://5d49e7485c331e00148ead96.mockapi.io/Habit")
     }, [])
-
-
-
+    
     return (
         <React.Fragment>
             <Header />
