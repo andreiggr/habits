@@ -29,6 +29,9 @@ export function habits(state = [], action) {
                 ...state.slice(0, removedIndex),
                 ...state.slice(removedIndex + 1)
             ];
+
+
+
         case 'ADD_DATE':
             let habitAddIndex = state.findIndex(habit => habit.id === action.day.habitId)
             let habitAdd = state[habitAddIndex];
@@ -53,6 +56,17 @@ export function habits(state = [], action) {
 
             return stateRem;
 
+        default:
+            return state;
+    }
+}
+
+const initialSelected = { days: [], id: "", title: "" }
+
+export function selectedHabit(state = initialSelected, action) {
+    switch (action.type) {
+        case 'HABIT_SELECT':
+            return action.selectedHabit;
         default:
             return state;
     }

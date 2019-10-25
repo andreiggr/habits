@@ -11,7 +11,6 @@ import { habitsFetchData, habitAddDate, habitRemoveDate, addHabit, removeHabit }
 const App = props => {
 
     const [habits, setHabits] = useState([]);
-    const [selectedHabit, setSelectedHabit] = useState(undefined);
 
     useEffect(() => {
         props.fetchData("http://5d49e7485c331e00148ead96.mockapi.io/Habit")
@@ -23,8 +22,8 @@ const App = props => {
         <React.Fragment>
             <Header />
             <Switch>
-                <Route exact path="/" render={() => <Main habits={habits} selectHabit={(habit) => setSelectedHabit(habit)}  {...props} />} />
-                <Route path="/habit/:title" render={() => <DetailedHabit habit={selectedHabit}  {...props} />} />
+                <Route exact path="/" render={() => <Main />} />
+                <Route path="/habit/:title" render={() => <DetailedHabit {...props} />} />
             </Switch>
         </React.Fragment>
     );

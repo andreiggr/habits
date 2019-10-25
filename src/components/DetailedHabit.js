@@ -2,25 +2,27 @@ import React, { Component } from 'react';
 import Calendar from 'react-calendar';
 import { Button } from '@material-ui/core';
 import moment from "moment";
+import { connect } from "react-redux";
 
 import '../style/styles.css';
 
-const DetailedHabit = props => {
+import { removeHabit } from "../actions/habits"
+
+const DetailedHabit = ({ selectedHabit, history, deleteHabit, onChange }) => {
 
     const handleRemoveHabit = () => {
-        props.removeHabit(props.habit)
-        props.history.replace("/")
+        deleteHabit(selectedHabit)
+        history.replace("/")
     }
 
-    const habit = props.habit;
-    const days = habit.days.map(item => moment.unix(item.date).format("L"));
+    const days = selectedHabit.days.map(item => moment.unix(item.date).format("L"));
 
     return (
         <div>
-            <p>{habit.title}</p>
+            <p>{selectedHabit.title}</p>
             <Calendar
                 className="calendar"
-                onChange={props.onChange}
+                onChange={onChange}
                 tileClassName={
                     ({ date, view }) => view === 'month' && days.includes(moment(date).format("L")) ? 'completed' : null
                 }
@@ -31,4 +33,17 @@ const DetailedHabit = props => {
     );
 }
 
-export default DetailedHabit;
+const mapStateToProps = (state) => {
+    return {
+        selectedHabit: state.selectedHabit,
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        deleteHabit: (habit) => dispatch(removeHabit(habit))
+    }
+
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DetailedHabit);

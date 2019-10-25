@@ -1,12 +1,16 @@
 import React, { Component, useState } from 'react';
 import HabitCard from './HabitCard';
 import { Typography, Button, Input } from '@material-ui/core';
-import moment from "moment";
 import Notification from './Notification';
 import _ from "lodash";
+import { connect } from 'react-redux';
+
+import { week } from "../utils/constants";
+
+import { addHabit } from '../actions/habits';
 
 
-const Main = props => {
+const Main = ({ addHabit, habits }) => {
 
     const [newHabit, setNewHabit] = useState("");
     const [openNotify, setOpenNotify] = useState(false);
@@ -16,7 +20,7 @@ const Main = props => {
         const title = newHabit;
 
         //assign next biggest id
-        const id = props.habits.length > 0 ? Math.max(...props.habits.map(habit => parseInt(habit.id))) + 1 : 1;
+        const id = habits.length > 0 ? Math.max(...habits.map(habit => parseInt(habit.id))) + 1 : 1;
         const days = [];
         const habit = { days, id, title };
 
@@ -24,22 +28,12 @@ const Main = props => {
             setOpenNotify(true);
             setNotifyText("Title is empty!")
         } else {
-            props.addHabit(habit);
+            addHabit(habit);
             setNewHabit("");
             setOpenNotify(true);
             setNotifyText("Habit added!");
         }
     }
-
-    const week = [
-        moment(),
-        moment().add(1, "day"),
-        moment().add(2, "day"),
-        moment().add(3, "day"),
-        moment().add(4, "day")
-    ];
-
-    const habits = props.habits;
 
     return (
 
@@ -50,7 +44,7 @@ const Main = props => {
                         {day.format("ddd Do")}
                     </Typography>)}
             </div>
-            {habits.map((habit, i) => <HabitCard key={i} habit={habit} week={week} {...props} habitSelect={() => props.selectHabit(habit)} />)}
+            {habits.map((habit, i) => <HabitCard key={i} habit={habit}/>)}
             <div style={{ marginTop: "10px" }}>
                 <Input style={{ marginRight: "10px" }} placeholder="New habit" value={newHabit} onChange={(e) => setNewHabit(e.target.value)} />
                 <Button variant="outlined" color="secondary" onClick={() => handleAddHabit()}> Add a habit </Button>
@@ -60,4 +54,18 @@ const Main = props => {
     );
 }
 
-export default Main;
+const mapStateToProps = (state) => {
+    return {
+        habits: state.habits,
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addHabit: (habit) => dispatch(addHabit(habit)),
+    };
+
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

@@ -24,15 +24,14 @@ export function habitsFetchDataSuccess(habits) {
 export function habitsFetchData(url) {
     return (dispatch) => {
         dispatch(habitsIsLoading(true));
-        fetch(url)
+        axios.get(url)
             .then((response) => {
-                if (!response.ok) {
+                if (response.statusText !== "OK") {
                     throw Error(response.statusText);
                 }
                 dispatch(habitsIsLoading(false));
-                return response;
+                return response.data;
             })
-            .then((response) => response.json())
             .then((habits) => dispatch(habitsFetchDataSuccess(habits)))
             .catch(() => dispatch(habitsHasErrored(true)));
     };
@@ -125,5 +124,12 @@ export function habitRemoveDateUpdate(day) {
     return {
         type: "REMOVE_DATE",
         day
+    }
+}
+
+export function habitSelect(selectedHabit) {
+    return {
+        type: "HABIT_SELECT",
+        selectedHabit
     }
 }
