@@ -13,6 +13,7 @@ import _ from "lodash";
 import { connect } from "react-redux";
 
 import nextDayId from "../utils/nextDayId";
+import weekCompletion from "../utils/weekCompletion";
 import { week } from "../utils/constants";
 
 import { habitAddDate, habitRemoveDate, habitSelect } from "../actions/habits";
@@ -25,8 +26,6 @@ const HabitCard = ({
   habitSelect,
   selectedHabit
 }) => {
-  //const [weekCompletion, setWeekCompletion] = useState(0);
-
   const handleCheck = day => {
     const habitId = habit.id;
     const id = nextDayId(habits);
@@ -53,10 +52,8 @@ const HabitCard = ({
     moment.unix(day.date).format("ddd Do")
   );
 
-  const daysChecked = week
-    .map(day => habitDays.includes(day.format("ddd Do")))
-    .filter(Boolean).length;
-  const weekCompletion = (daysChecked * 100) / 5;
+  //check how many days of the week are checked
+  const progressCircle = weekCompletion(habitDays);
 
   return (
     <div>
@@ -72,7 +69,7 @@ const HabitCard = ({
       >
         <CircularProgress
           variant="static"
-          value={weekCompletion}
+          value={progressCircle}
           size={25}
           style={{ margin: "3px", marginRight: "10px" }}
         />
