@@ -50,7 +50,7 @@ const Header = ({ history, selectedHabit, habitSelect }) => {
             </IconButton>
           </div>
           <Typography variant="h6" className={classes.title}>
-            {title}
+            {title} ses
           </Typography>
           <div style={{ textDecoration: "none", color: "white" }}>
             <IconButton
