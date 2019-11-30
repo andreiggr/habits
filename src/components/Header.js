@@ -2,7 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { AppBar, Typography } from "@material-ui/core";
 import { Toolbar, IconButton } from "@material-ui/core";
-import { Home, BrushOutlined } from "@material-ui/icons";
+import { Home, BrushOutlined, Edit, EditOutlined } from "@material-ui/icons";
 
 import { withRouter } from "react-router";
 import { connect } from "react-redux";
@@ -59,7 +59,7 @@ const Header = ({ history, selectedHabit, habitSelect }) => {
               color="inherit"
               aria-label="style"
             >
-              <BrushOutlined />
+              <EditOutlined />
             </IconButton>
           </div>
         </Toolbar>
